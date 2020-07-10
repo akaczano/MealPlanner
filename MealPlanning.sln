@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPlanning", "MealPlanning\MealPlanning.csproj", "{AAC92CFB-8D71-4931-AA24-155102B2D846}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAC92CFB-8D71-4931-AA24-155102B2D846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC92CFB-8D71-4931-AA24-155102B2D846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC92CFB-8D71-4931-AA24-155102B2D846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC92CFB-8D71-4931-AA24-155102B2D846}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E72A1AD9-9953-4460-AD40-FF2C9668DAA6}
+	EndGlobalSection
+EndGlobal

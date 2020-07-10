@@ -1,0 +1,2 @@
+Tacos|Tortilla~Each~5|Beef~Pound~1.5|Cheese~Cup~2
+Tomato Salad|Tomato~Ounce~8|Cheese~Tablespoon~6

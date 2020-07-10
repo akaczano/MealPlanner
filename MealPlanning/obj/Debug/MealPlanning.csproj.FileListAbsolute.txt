@@ -1,0 +1,11 @@
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\bin\Debug\MealPlanning.exe.config
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\bin\Debug\MealPlanning.exe
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\bin\Debug\MealPlanning.pdb
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.Form1.resources
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.Properties.Resources.resources
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.csproj.GenerateResource.cache
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.csproj.CoreCompileInputs.cache
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.exe
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.pdb
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.IngredientDialog.resources
+C:\Users\thelo\source\repos\MealPlanning\MealPlanning\obj\Debug\MealPlanning.csprojAssemblyReference.cache
