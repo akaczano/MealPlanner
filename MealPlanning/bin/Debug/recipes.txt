@@ -1,2 +1,5 @@
-Tacos|Tortilla~Each~5|Beef~Pound~1.5|Cheese~Cup~2
-Tomato Salad|Tomato~Ounce~8|Cheese~Tablespoon~6
+Banana Split|3
+Burrito|0
+Caesar Salad|1
+Tacos|2|Tortilla~Each~5|Beef~Pound~1.5|Cheese~Cup~2
+Tomato Salad|1|Tomato~Ounce~8|Cheese~Tablespoon~6|Beef~Ounce~2.3

@@ -66,6 +66,20 @@ namespace MealPlanning {
             _shopList2.ResizeToParent();
             saveButton.Enabled = false;
             listRemove.Enabled = false;
+
+
+            foreach (var type in Enum.GetValues(typeof(RecipeType))) {
+                recipeType.Items.Add(type);
+                if ((RecipeType)type != RecipeType.All)
+                {
+                    cmbRecipeType.Items.Add(type);
+                }
+            }
+            recipeType.SelectedItem = RecipeType.All;
+            recipeType.SelectedIndexChanged += RecipeTypeChanged;
+            cmbRecipeType.SelectedItem = RecipeType.Dinner;
+            cmbRecipeType.SelectedIndexChanged += RecipeTypeModified;
+            cmbRecipeType.Enabled = false;
         }
 
         private void _shopList2_DragDrop(object sender, DragEventArgs e) {
@@ -79,6 +93,7 @@ namespace MealPlanning {
 
         private void textBox1_TextChanged(object sender, EventArgs e) {
             _recipeList.FilterText = recipeSearch.Text;
+
         }
 
         private void ingredientSearch_TextChanged(object sender, EventArgs e) {
@@ -119,6 +134,7 @@ namespace MealPlanning {
                 if (_ingredientList.SelectedItem != null && !selectionChanging) {
                     _ingredientList.UpdateDisplayText(_ingredientList.SelectedItem, iNameField.Text);
                     _ingredientList.SelectedItem.Name = iNameField.Text;
+                    _recipeList.Sort((a, b) => a.Name.CompareTo(b.Name));
                 }
             }
         }
@@ -148,7 +164,14 @@ namespace MealPlanning {
                     string[] fields = line.Split('|');
                     Recipe recipe = new Recipe();
                     recipe.Name = fields[0];
-                    foreach (string ingr in fields.Skip(1)) {
+                    int skipCount = 1;
+                    int typeVal;
+                    if (fields.Length > 1 && int.TryParse(fields[1], out typeVal)) {
+                        recipe.Type = (RecipeType)typeVal;
+                        skipCount++;
+                    }
+
+                    foreach (string ingr in fields.Skip(skipCount)) {
                         string[] segments = ingr.Split('~');
                         Ingredient ingredient = _ingredientList.Items.Find(i => i.Name == segments[0]);
                         UOM uom = UOM.ValueOf(segments[1]);
@@ -171,7 +194,7 @@ namespace MealPlanning {
             using (StreamWriter writer = new StreamWriter("recipes.txt", false)) {
                 
                 foreach (Recipe r in _recipeList.Items) {
-                    string line = r.Name;
+                    string line = r.Name + "|" + (int)r.Type;
                     foreach (var item in r.Ingredients) {
                         line += "|";
                         line += item.Item1.ToString();
@@ -213,10 +236,12 @@ namespace MealPlanning {
             selectionChanging = true;
             if (newRecipe != null) {
                 rNameField.Text = newRecipe.Name;
+                cmbRecipeType.SelectedItem = newRecipe.Type;
                 rNameField.Enabled = true;
                 addIngredient.Enabled = true;
                 delIngredient.Enabled = true;
                 removeRecipe.Enabled = true;
+                cmbRecipeType.Enabled = true;
                 dataGridView1.Rows.Clear();
                 foreach ((Ingredient ingr, UOM uom, double qty) in newRecipe.Ingredients) {
                     dataGridView1.Rows.Add();
@@ -229,7 +254,11 @@ namespace MealPlanning {
             else {
                 rNameField.Text = "";
                 rNameField.Enabled = false;
+                cmbRecipeType.Enabled = false;
                 dataGridView1.Rows.Clear();
+                addIngredient.Enabled = false;
+                delIngredient.Enabled = false;
+                removeRecipe.Enabled = false;
             }
             selectionChanging = false;
         }
@@ -244,18 +273,24 @@ namespace MealPlanning {
                 recipe.Name = "New Recipe " + counter;
                 counter++;
             }
-            _recipeList.Add(recipe);
+            _recipeList.Add(recipe);           
             _recipeList.SelectedItem = recipe;
         }
 
         private void removeRecipe_Click(object sender, EventArgs e) {            
             if (_recipeList.SelectedItem != null) {
-                _recipeList.Remove(_recipeList.SelectedItem);
-                rNameField.Text = "";
-                dataGridView1.Rows.Clear();
-                rNameField.Enabled = false;
-                addIngredient.Enabled = false;
-                delIngredient.Enabled = false;
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + 
+                    _recipeList.SelectedItem.Name,
+                    "Confirm delete", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    _recipeList.Remove(_recipeList.SelectedItem);
+                    rNameField.Text = "";
+                    dataGridView1.Rows.Clear();
+                    rNameField.Enabled = false;
+                    addIngredient.Enabled = false;
+                    delIngredient.Enabled = false;
+                }
             }
         }
 
@@ -361,6 +396,37 @@ namespace MealPlanning {
             if (ne != null) {
                 listRemove.Enabled = true;
             }   
+        }
+
+
+
+        private void SortIngredients(object sender, EventArgs e)
+        {
+            _ingredientList.Sort((a, b) => a.Name.CompareTo(b.Name));
+        }
+
+        private void RecipeTypeChanged(object sender, EventArgs e)
+        {
+            RecipeType newType = (RecipeType)recipeType.SelectedItem;
+            if (newType != RecipeType.All)
+            {
+                _recipeList.Filter(r => r.Type == newType);
+            }
+            else {
+                _recipeList.Filter(r => true);
+            }
+        }
+
+        private void SortRecipes(object sender, EventArgs e)
+        {
+            _recipeList.Sort((a, b) => a.Name.CompareTo(b.Name));
+        }
+
+        private void RecipeTypeModified(object sender, EventArgs args) {
+            if (_recipeList.SelectedItem != null && !selectionChanging)
+            {
+                _recipeList.SelectedItem.Type = (RecipeType)cmbRecipeType.SelectedItem;
+            }
         }
     }
 }

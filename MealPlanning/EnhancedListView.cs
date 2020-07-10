@@ -7,21 +7,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MealPlanning {
-    class EnhancedListView<T> : Panel {
+    class EnhancedListView<T> : Panel
+    {
         public List<T> Items { get; }
 
         private T _selectedItem;
 
-        public T SelectedItem {
-            get {
+        public T SelectedItem
+        {
+            get
+            {
                 return _selectedItem;
             }
-            set {
-                if (_selectable) {
-                    if (_selectedItem != null) {
+            set
+            {
+                if (_selectable)
+                {
+                    if (_selectedItem != null)
+                    {
                         Controls.Find(_selectedItem.ToString(), false).First().ForeColor = ForeColor;
                     }
-                    if (value != null) {                        
+                    if (value != null)
+                    {
                         _selectedItem = value;
                         Controls.Find(value.ToString(), false).FirstOrDefault().ForeColor = SelectColor;
                     }
@@ -44,30 +51,19 @@ namespace MealPlanning {
 
         private int _cursorY;
 
-        private string _filterText = "";
-        public string FilterText {
-            get {
-                return _filterText;
-            }
-            set {
-                _filterText = value;
-                int lastLocation = VerticalPadding;
-                foreach (Control c in Controls) {
-                    c.Visible = c.Name.ToLower().Contains(_filterText.ToLower());
-                    if (c.Visible) {
-                        if (c.Location.Y != lastLocation) {
-                            c.Location = new Point(c.Location.X, lastLocation);
-                        }
-                        lastLocation += Font.Height + VerticalPadding;
-                    }
-                }
+        public string FilterText
+        {
+            set
+            {
+                Filter(i => i.ToString().ToLower().Contains(value.ToLower()));
             }
         }
 
         private bool _selectable = false;
         private bool _draggable = false;
 
-        public EnhancedListView(bool selectable, bool draggable) {
+        public EnhancedListView(bool selectable, bool draggable)
+        {
             this.AutoScroll = true;
             Items = new List<T>();
             _draggable = draggable;
@@ -75,61 +71,101 @@ namespace MealPlanning {
         }
 
 
+        public void Filter(Predicate<T> predicate)
+        {
+            int lastLocation = VerticalPadding;
+            foreach (Control c in Controls)
+            {
+                c.Visible = predicate(Items.Find(i => i.ToString() == c.Name));
+                if (c.Visible)
+                {
+                    if (c.Location.Y != lastLocation)
+                    {
+                        c.Location = new Point(c.Location.X, lastLocation);
+                    }
+                    lastLocation += Font.Height + VerticalPadding;
+                }
+            }
+        }
 
-        public void Add(T item) {
+        public void Sort(Comparison<T> comparer) {
+            Items.Sort(comparer);
+            for (int i = 0; i < Controls.Count; i++) {
+                if (Controls[i].Name != Items[i].ToString()) {
+                    Controls[i].Name = Items[i].ToString();
+                    Controls[i].Text = Items[i].ToString();
+                    Controls[i].ForeColor = Items[i].Equals(_selectedItem) ? SelectColor : ForeColor;
+                }
+            }
+        }
+
+        public void Add(T item)
+        {
             Items.Add(item);
             Label l = CreateLabel(item, _cursorY);
             Controls.Add(l);
             _cursorY += l.Font.Height + VerticalPadding;
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             Items.Clear();
             Controls.Clear();
             SelectedItem = default;
             _cursorY = VerticalPadding;
         }
 
-        public void Remove(T item) {
-            if (Items.Contains(item)) {
+        public void Remove(T item)
+        {
+            if (Items.Contains(item))
+            {
                 Control label = Controls.Find(item.ToString(), false).First();
                 int position = label.Location.Y;
                 _cursorY -= (label.Font.Height + VerticalPadding);
                 Controls.Remove(label);
-                foreach (Control c in Controls) {
-                    if (c.Location.Y > position) {
+                foreach (Control c in Controls)
+                {
+                    if (c.Location.Y > position)
+                    {
                         c.Location = new Point(LeftMargin, c.Location.Y - (VerticalPadding + Font.Height));
                     }
                 }
-                
-                if (_selectedItem.Equals(item)) {
+
+                if (_selectedItem.Equals(item))
+                {
                     _selectedItem = default;
                 }
                 Items.Remove(item);
             }
         }
 
-        private Label CreateLabel(T item, int y) {
-            Label l = new Label() {
+        private Label CreateLabel(T item, int y)
+        {
+            Label l = new Label()
+            {
                 Text = item.ToString(),
                 Location = new Point(LeftMargin, _cursorY),
                 Font = Font,
                 ForeColor = ForeColor,
-                Width = Width-LeftMargin,
+                Width = Width - LeftMargin,
                 Name = item.ToString()
             };
-            if (item.Equals(_selectedItem)) {
+            if (item.Equals(_selectedItem))
+            {
                 l.ForeColor = SelectColor;
             }
-            else {
+            else
+            {
                 l.MouseEnter += (sender, args) => {
                     l.ForeColor = HoverColor;
                 };
                 l.MouseLeave += (sender, args) => {
-                    if (!item.Equals(_selectedItem)) {
+                    if (!item.Equals(_selectedItem))
+                    {
                         l.ForeColor = ForeColor;
                     }
-                    else {
+                    else
+                    {
                         l.ForeColor = SelectColor;
                     }
                 };
@@ -138,22 +174,27 @@ namespace MealPlanning {
                 SelectedItem = item;
             };
             l.MouseDown += (sender, args) => {
-                if (_draggable) {
+                if (_draggable)
+                {
                     l.DoDragDrop(item.ToString(), DragDropEffects.Copy | DragDropEffects.Move);
                 }
             };
             return l;
         }
 
-        public void ResizeToParent() {
+        public void ResizeToParent()
+        {
             this.Width = this.Parent.Width;
             this.Height = this.Parent.Height;
             this.Location = new Point(0, 0);
         }
 
-        public void UpdateDisplayText(T item, string newName) {
-            foreach (Control c in Controls) {
-                if (c.Text == item.ToString()) {                    
+        public void UpdateDisplayText(T item, string newName)
+        {
+            foreach (Control c in Controls)
+            {
+                if (c.Text == item.ToString())
+                {
                     c.Text = newName;
                     c.Name = newName;
                 }
@@ -161,7 +202,8 @@ namespace MealPlanning {
         }
 
 
-        protected override void OnDragOver(DragEventArgs drgevent) {
+        protected override void OnDragOver(DragEventArgs drgevent)
+        {
             base.OnDragOver(drgevent);
 
         }

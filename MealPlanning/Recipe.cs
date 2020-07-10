@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MealPlanning {
-    class Recipe {
+    public class Recipe {
 
         public string Name { get; set; }
         public List<(Ingredient, UOM, double)> Ingredients { get; set; }
+
+        public RecipeType Type { get; set; } = RecipeType.Dinner;
 
         public Recipe() {
             Ingredients = new List<(Ingredient, UOM, double)>();
@@ -18,5 +20,13 @@ namespace MealPlanning {
             return Name;
         }
 
+    }
+
+    public enum RecipeType { 
+        Breakfast = 0,
+        Lunch = 1,
+        Dinner= 2,
+        Dessert = 3,
+        All = 4
     }
 }
