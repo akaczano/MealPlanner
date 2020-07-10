@@ -605,8 +605,9 @@
             // createShoppingListToolStripMenuItem
             // 
             this.createShoppingListToolStripMenuItem.Name = "createShoppingListToolStripMenuItem";
-            this.createShoppingListToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.createShoppingListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.createShoppingListToolStripMenuItem.Text = "Preferences";
+            this.createShoppingListToolStripMenuItem.Click += new System.EventHandler(this.EditPreferences);
             // 
             // Form1
             // 

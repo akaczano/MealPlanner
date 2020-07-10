@@ -458,5 +458,13 @@ namespace MealPlanning {
                 _ingredientList.SelectedItem.Section = (StoreSection)cmbSection.SelectedItem;
             }
         }
+
+        private void EditPreferences(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm(new UserPreferences());
+            settingsForm.Width = 350;
+            settingsForm.Height = 500;
+            settingsForm.ShowWindow();
+        }
     }
 }
