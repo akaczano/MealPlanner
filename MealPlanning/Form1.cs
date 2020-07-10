@@ -66,6 +66,7 @@ namespace MealPlanning {
             _shopList2.ResizeToParent();
             saveButton.Enabled = false;
             listRemove.Enabled = false;
+            cmbSection.Enabled = false;
 
 
             foreach (var type in Enum.GetValues(typeof(RecipeType))) {
@@ -80,6 +81,11 @@ namespace MealPlanning {
             cmbRecipeType.SelectedItem = RecipeType.Dinner;
             cmbRecipeType.SelectedIndexChanged += RecipeTypeModified;
             cmbRecipeType.Enabled = false;
+
+            foreach (var section in Enum.GetValues(typeof(StoreSection))) {
+                cmbSection.Items.Add(section);
+            }
+            cmbSection.SelectedIndexChanged += StoreSectionChanged;
         }
 
         private void _shopList2_DragDrop(object sender, DragEventArgs e) {
@@ -120,16 +126,20 @@ namespace MealPlanning {
                 ingredientUOM.Enabled = true;
                 ingredientUOM.SelectedItem = newIngredient.UOMClass;
                 removeIngredient.Enabled = true;
+                cmbSection.Enabled = true;
+                cmbSection.SelectedItem = newIngredient.Section;
             }
             else {
                 iNameField.Text = "";
                 iNameField.Enabled = false;
                 ingredientUOM.Enabled = false;
+                cmbSection.Enabled = false;
+                removeIngredient.Enabled = false;
             }
             selectionChanging = false;
         }
 
-        private void iNameField_TextChanged(object sender, EventArgs e) {
+        private void IngredientNameChanged(object sender, EventArgs e) {
             if (iNameField.Text.Length > 0 && !_ingredientList.Items.Any(i => i.Name == iNameField.Text)) {
                 if (_ingredientList.SelectedItem != null && !selectionChanging) {
                     _ingredientList.UpdateDisplayText(_ingredientList.SelectedItem, iNameField.Text);
@@ -139,13 +149,13 @@ namespace MealPlanning {
             }
         }
 
-        private void ingredientUOM_SelectedIndexChanged(object sender, EventArgs e) {
+        private void IngredientUOMClassChanged(object sender, EventArgs e) {
             if (_ingredientList.SelectedItem != null && !selectionChanging) {
                 _ingredientList.SelectedItem.UOMClass = (UOMClass)ingredientUOM.SelectedItem;
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
+        private void FormLoad(object sender, EventArgs e) {
             if (File.Exists("ingredients.txt")) {
                 string[] lines = File.ReadAllLines("ingredients.txt");
                 foreach (string line in lines) {
@@ -185,7 +195,7 @@ namespace MealPlanning {
             }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+        private void OnFormClosed(object sender, FormClosedEventArgs e) {
             using (StreamWriter writer = new StreamWriter(File.OpenWrite("ingredients.txt"))) {
                 foreach (Ingredient i in _ingredientList.Items) {
                     writer.WriteLine(string.Format("{0}|{1}|{2}", i.Name, (int)i.UOMClass, (int)i.Section));
@@ -208,7 +218,7 @@ namespace MealPlanning {
             }
         }
 
-        private void rNameField_TextChanged(object sender, EventArgs e) {
+        private void RecipeNameChanged(object sender, EventArgs e) {
             if (_recipeList.SelectedItem != null && !selectionChanging) {
                 if (rNameField.Text.Length > 0 && !_recipeList.Items.Any(r => r.Name == rNameField.Text)) {
                     _recipeList.UpdateDisplayText(_recipeList.SelectedItem, rNameField.Text);
@@ -217,7 +227,7 @@ namespace MealPlanning {
             }
         }
 
-        private void addIngredient_Click(object sender, EventArgs e) {
+        private void RecipeAddIngredient(object sender, EventArgs e) {
             IngredientDialog dialog = new IngredientDialog();
             dialog.AddIngredients(_ingredientList.Items);
             dialog.ShowDialog();
@@ -263,7 +273,7 @@ namespace MealPlanning {
             selectionChanging = false;
         }
 
-        private void newRecipe_Click(object sender, EventArgs e) {
+        private void NewRecipe(object sender, EventArgs e) {
             Recipe recipe = new Recipe() {
                 Name = "New Recipe"
             };
@@ -277,7 +287,7 @@ namespace MealPlanning {
             _recipeList.SelectedItem = recipe;
         }
 
-        private void removeRecipe_Click(object sender, EventArgs e) {            
+        private void RemoveRecipe(object sender, EventArgs e) {            
             if (_recipeList.SelectedItem != null) {
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + 
                     _recipeList.SelectedItem.Name,
@@ -294,7 +304,7 @@ namespace MealPlanning {
             }
         }
 
-        private void delIngredient_Click(object sender, EventArgs e) {
+        private void RecipeRemoveIngredient(object sender, EventArgs e) {
             if (_recipeList.SelectedItem != null && dataGridView1.SelectedRows.Count > 0) {
                 int index = dataGridView1.SelectedRows[0].Index;
                 _recipeList.SelectedItem.Ingredients.RemoveAt(index);
@@ -302,7 +312,7 @@ namespace MealPlanning {
             }
         }
 
-        private void removeIngredient_Click(object sender, EventArgs e) {
+        private void RemoveIngredient(object sender, EventArgs e) {
             if (_ingredientList.SelectedItem != null) {
                 bool possible = true;
                 foreach (Recipe r in _recipeList.Items) {
@@ -323,11 +333,11 @@ namespace MealPlanning {
             }
         }
 
-        private void shopSearch_TextChanged(object sender, EventArgs e) {
+        private void FilterShopRecipes(object sender, EventArgs e) {
             _shopList1.FilterText = shopSearch.Text;
         }
 
-        private void refreshButton_Click(object sender, EventArgs e) {
+        private void RefreshShopRecipes(object sender, EventArgs e) {
             _shopList1.Clear();
             _shopList2.Clear();
             foreach (Recipe r in _recipeList.Items) {                
@@ -335,7 +345,7 @@ namespace MealPlanning {
             }
         }
 
-        private void generateButton_Click(object sender, EventArgs e) {
+        private void GenerateShoppingList(object sender, EventArgs e) {
 
             Dictionary<Ingredient, double> shoppingList = new Dictionary<Ingredient, double>();
 
@@ -355,6 +365,7 @@ namespace MealPlanning {
             StringBuilder builder = new StringBuilder();
             builder.Append("<h3>Shopping List</h3>");
             builder.Append("<ul>");
+            
             foreach (KeyValuePair<Ingredient, double> pair in shoppingList.OrderBy(x => x.Key.Name)) {
                 string label = "";
                 double current = pair.Value;
@@ -379,7 +390,7 @@ namespace MealPlanning {
             saveButton.Enabled = true;
         }
 
-        private void saveButton_Click(object sender, EventArgs e) {
+        private void SaveShoppingList(object sender, EventArgs e) {
             saveFileDialog1.ShowDialog();
             string fileName = saveFileDialog1.FileName;
             if (!fileName.EndsWith(".html")) {
@@ -388,7 +399,7 @@ namespace MealPlanning {
             File.WriteAllText(fileName, webBrowser1.DocumentText);
         }
 
-        private void listRemove_Click(object sender, EventArgs e) {
+        private void RemoveShopRecipe(object sender, EventArgs e) {
             _shopList2.Remove(_shopList2.SelectedItem);
         }
 
@@ -426,6 +437,12 @@ namespace MealPlanning {
             if (_recipeList.SelectedItem != null && !selectionChanging)
             {
                 _recipeList.SelectedItem.Type = (RecipeType)cmbRecipeType.SelectedItem;
+            }
+        }
+
+        private void StoreSectionChanged(object sender, EventArgs e) {
+            if (_ingredientList.SelectedItem != null && !selectionChanging) {
+                _ingredientList.SelectedItem.Section = (StoreSection)cmbSection.SelectedItem;
             }
         }
     }

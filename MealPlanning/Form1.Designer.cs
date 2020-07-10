@@ -44,6 +44,8 @@
             this.rNameLabel = new System.Windows.Forms.Label();
             this.newRecipe = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cmbSection = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.removeIngredient = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -161,7 +163,7 @@
             this.removeRecipe.TabIndex = 21;
             this.removeRecipe.Text = "Remove";
             this.removeRecipe.UseVisualStyleBackColor = true;
-            this.removeRecipe.Click += new System.EventHandler(this.removeRecipe_Click);
+            this.removeRecipe.Click += new System.EventHandler(this.RemoveRecipe);
             // 
             // delIngredient
             // 
@@ -172,7 +174,7 @@
             this.delIngredient.TabIndex = 20;
             this.delIngredient.Text = "Remove Ingredient";
             this.delIngredient.UseVisualStyleBackColor = true;
-            this.delIngredient.Click += new System.EventHandler(this.delIngredient_Click);
+            this.delIngredient.Click += new System.EventHandler(this.RecipeRemoveIngredient);
             // 
             // addIngredient
             // 
@@ -183,7 +185,7 @@
             this.addIngredient.TabIndex = 19;
             this.addIngredient.Text = "Add Ingredient";
             this.addIngredient.UseVisualStyleBackColor = true;
-            this.addIngredient.Click += new System.EventHandler(this.addIngredient_Click);
+            this.addIngredient.Click += new System.EventHandler(this.RecipeAddIngredient);
             // 
             // recipeListPanel
             // 
@@ -279,7 +281,7 @@
             this.rNameField.Name = "rNameField";
             this.rNameField.Size = new System.Drawing.Size(388, 27);
             this.rNameField.TabIndex = 8;
-            this.rNameField.TextChanged += new System.EventHandler(this.rNameField_TextChanged);
+            this.rNameField.TextChanged += new System.EventHandler(this.RecipeNameChanged);
             // 
             // rNameLabel
             // 
@@ -300,10 +302,12 @@
             this.newRecipe.TabIndex = 1;
             this.newRecipe.Text = "New Recipe";
             this.newRecipe.UseVisualStyleBackColor = true;
-            this.newRecipe.Click += new System.EventHandler(this.newRecipe_Click);
+            this.newRecipe.Click += new System.EventHandler(this.NewRecipe);
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cmbSection);
+            this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.removeIngredient);
             this.tabPage2.Controls.Add(this.label5);
@@ -322,6 +326,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Ingredients";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cmbSection
+            // 
+            this.cmbSection.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSection.FormattingEnabled = true;
+            this.cmbSection.Location = new System.Drawing.Point(527, 158);
+            this.cmbSection.Name = "cmbSection";
+            this.cmbSection.Size = new System.Drawing.Size(190, 24);
+            this.cmbSection.TabIndex = 24;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(527, 142);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(71, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Store Section";
             // 
             // button2
             // 
@@ -342,7 +364,7 @@
             this.removeIngredient.TabIndex = 21;
             this.removeIngredient.Text = "Remove";
             this.removeIngredient.UseVisualStyleBackColor = true;
-            this.removeIngredient.Click += new System.EventHandler(this.removeIngredient_Click);
+            this.removeIngredient.Click += new System.EventHandler(this.RemoveIngredient);
             // 
             // label5
             // 
@@ -403,7 +425,7 @@
             this.ingredientUOM.Name = "ingredientUOM";
             this.ingredientUOM.Size = new System.Drawing.Size(190, 24);
             this.ingredientUOM.TabIndex = 11;
-            this.ingredientUOM.SelectedIndexChanged += new System.EventHandler(this.ingredientUOM_SelectedIndexChanged);
+            this.ingredientUOM.SelectedIndexChanged += new System.EventHandler(this.IngredientUOMClassChanged);
             // 
             // iNameField
             // 
@@ -413,7 +435,7 @@
             this.iNameField.Name = "iNameField";
             this.iNameField.Size = new System.Drawing.Size(349, 27);
             this.iNameField.TabIndex = 10;
-            this.iNameField.TextChanged += new System.EventHandler(this.iNameField_TextChanged);
+            this.iNameField.TextChanged += new System.EventHandler(this.IngredientNameChanged);
             // 
             // iNameLabel
             // 
@@ -456,7 +478,7 @@
             this.listRemove.TabIndex = 14;
             this.listRemove.Text = "Remove";
             this.listRemove.UseVisualStyleBackColor = true;
-            this.listRemove.Click += new System.EventHandler(this.listRemove_Click);
+            this.listRemove.Click += new System.EventHandler(this.RemoveShopRecipe);
             // 
             // saveButton
             // 
@@ -467,7 +489,7 @@
             this.saveButton.TabIndex = 13;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.SaveShoppingList);
             // 
             // webBrowser1
             // 
@@ -486,7 +508,7 @@
             this.shopSearch.Name = "shopSearch";
             this.shopSearch.Size = new System.Drawing.Size(144, 23);
             this.shopSearch.TabIndex = 11;
-            this.shopSearch.TextChanged += new System.EventHandler(this.shopSearch_TextChanged);
+            this.shopSearch.TextChanged += new System.EventHandler(this.FilterShopRecipes);
             // 
             // label6
             // 
@@ -507,7 +529,7 @@
             this.refreshButton.TabIndex = 9;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.refreshButton.Click += new System.EventHandler(this.RefreshShopRecipes);
             // 
             // shoppingPanel
             // 
@@ -558,7 +580,7 @@
             this.generateButton.TabIndex = 2;
             this.generateButton.Text = "Create shopping list";
             this.generateButton.UseVisualStyleBackColor = true;
-            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
+            this.generateButton.Click += new System.EventHandler(this.GenerateShoppingList);
             // 
             // menuStrip1
             // 
@@ -598,8 +620,8 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Meal Planner";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
+            this.Load += new System.EventHandler(this.FormLoad);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -664,6 +686,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox cmbRecipeType;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cmbSection;
+        private System.Windows.Forms.Label label8;
     }
 }
 
