@@ -316,13 +316,28 @@ namespace MealPlanning {
                 }
             }
 
-
+            // 3 pounds, 5 ounces = 3.3125 lb
             StringBuilder builder = new StringBuilder();
             builder.Append("<h3>Shopping List</h3>");
             builder.Append("<ul>");
-            foreach (KeyValuePair<Ingredient, double> pair in shoppingList.OrderBy(x => x.Key.Name)) {                
-                builder.Append(string.Format("<li>{0}: {1} {2}</li>", pair.Key.Name, 
-                    pair.Value, UOM.GetBaseUOM(pair.Key.UOMClass).Abbreviation));
+            foreach (KeyValuePair<Ingredient, double> pair in shoppingList.OrderBy(x => x.Key.Name)) {
+                string label = "";
+                double current = pair.Value;
+                for  (int i = 0; i < UOM.GetUOMs(pair.Key.UOMClass).Length; i++) {
+                    UOM uom = UOM.GetUOMs(pair.Key.UOMClass)[i];
+                    int quantity = (int)(current / uom.ConversionFactor);
+
+                    current -= quantity * uom.ConversionFactor;
+                    if (i == (UOM.GetUOMs(pair.Key.UOMClass).Length - 1) && current > 0.01) {
+                        quantity++;
+                    }
+                    if (quantity > 0)
+                    {
+                        label += quantity + " " + uom.Abbreviation + ", ";
+                    }
+                }
+                label = label.Substring(0, label.Length - 2);
+                builder.Append(string.Format("<li>{0}: {1}</li>", pair.Key.Name, label));
             }
             builder.Append("</ul>");
             webBrowser1.DocumentText = builder.ToString();

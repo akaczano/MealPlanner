@@ -102,7 +102,18 @@ namespace MealPlanning {
             }
         }
 
-
+        public static UOM[] GetUOMs(UOMClass type) {
+            switch (type) {
+                case UOMClass.COUNT:
+                    return new UOM[] { each };
+                case UOMClass.VOLUME:
+                    return new UOM[] { cup, tablespoon, teaspoon };
+                case UOMClass.WEIGHT:
+                    return new UOM[] { pound, ounce };
+                default:
+                    return null;
+            }
+        }
 
 
     }
