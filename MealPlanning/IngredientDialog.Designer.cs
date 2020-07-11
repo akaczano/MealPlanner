@@ -38,6 +38,7 @@
             // 
             // dialogList
             // 
+            this.dialogList.AutoScroll = true;
             this.dialogList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dialogList.Location = new System.Drawing.Point(46, 162);
             this.dialogList.Name = "dialogList";

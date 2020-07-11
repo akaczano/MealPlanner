@@ -1,5 +1,3 @@
-Banana Split|3|New Ingredient 1~Cup~2
-Burrito|0
-Caesar Salad|1
-Tacos|2|Tortilla~Each~5|Beef~Pound~1.5|Cheese~Cup~2
-Tomato Salad|1|Tomato~Ounce~8|Cheese~Tablespoon~6|Beef~Ounce~2.3
+Orange Roughy with Cilantro Pesto|2|Fresh cilantro~Cup~1.5|Orange roughy or cod~Ounce~1.5|Fresh jalapeno~Each~1|Fresh garlic cloves~Each~1|Olive oil~Tablespoon~2|Lime Juice~Tablespoon~1
+Strawberry Smoothie|0|Almonds, shelled~Cup~1|Frozen strawberries~Cup~4|Yogurt, vanilla~Pound~12|Fresh banana~Each~1
+New Recipe 1|1

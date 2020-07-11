@@ -23,7 +23,7 @@ namespace MealPlanning {
     }
 
     public enum StoreSection {
-        Produce = 0, Dairy = 1, Deli = 2, Meat = 3, Main = 4 
+        Produce = 0, Dairy = 1, Deli = 2, Meat = 3, Main = 4, Frozen = 5 
     }
 
     public class UOM {

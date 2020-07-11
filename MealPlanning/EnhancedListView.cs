@@ -23,16 +23,18 @@ namespace MealPlanning {
             {
                 if (_selectable)
                 {
+                                        
                     if (_selectedItem != null)
-                    {
+                    {                        
                         Controls.Find(_selectedItem.ToString(), false).First().ForeColor = ForeColor;
                     }
                     if (value != null)
-                    {
-                        _selectedItem = value;
+                    {                        
                         Controls.Find(value.ToString(), false).FirstOrDefault().ForeColor = SelectColor;
                     }
+                    
                     SelectionChanged?.Invoke(_selectedItem, value);
+                    _selectedItem = value;
                 }
             }
         }
@@ -49,7 +51,8 @@ namespace MealPlanning {
 
         public event SelectionChangedHandler SelectionChanged;
 
-        private int _cursorY;
+        private int _cursorY = 10;
+        private bool _heightDirty = false;
 
         public string FilterText
         {
@@ -64,7 +67,7 @@ namespace MealPlanning {
 
         public EnhancedListView(bool selectable, bool draggable)
         {
-            this.AutoScroll = true;
+            this.AutoScroll = false;
             Items = new List<T>();
             _draggable = draggable;
             _selectable = selectable;
@@ -73,6 +76,7 @@ namespace MealPlanning {
 
         public void Filter(Predicate<T> predicate)
         {
+            AutoScrollPosition = new Point(0, 0);
             int lastLocation = VerticalPadding;
             foreach (Control c in Controls)
             {
@@ -86,25 +90,66 @@ namespace MealPlanning {
                     lastLocation += Font.Height + VerticalPadding;
                 }
             }
+            RecalculateHeight();
         }
 
         public void Sort(Comparison<T> comparer) {
+            this.AutoScrollPosition = new Point(0, 0);
             Items.Sort(comparer);
-            for (int i = 0; i < Controls.Count; i++) {
-                if (Controls[i].Name != Items[i].ToString()) {
-                    Controls[i].Name = Items[i].ToString();
-                    Controls[i].Text = Items[i].ToString();
-                    Controls[i].ForeColor = Items[i].Equals(_selectedItem) ? SelectColor : ForeColor;
+            int lastLocation = VerticalPadding;
+            foreach (T item in Items) {
+                Control c = Controls.Find(item.ToString(), false).FirstOrDefault();
+                if (c != null) {
+                    c.Location = new Point(LeftMargin, lastLocation);
+                    lastLocation += Font.Height + VerticalPadding;
+                }
+            }
+            
+        }
+
+        public void Add(T item)
+        {            
+            Items.Add(item);            
+
+            Label l = CreateLabel(item, _cursorY);
+            Controls.Add(l);
+            _cursorY += l.Font.Height + VerticalPadding;
+            if (!Visible) {
+                _heightDirty = true;
+            }
+            else {
+                RecalculateHeight();
+            }
+        }
+
+        public void RecalculateHeight() {
+            if (Controls.Count > 0) {
+                Control c = null;
+                for (int i = Controls.Count - 1; i >= 0; i--) {
+                    if (Controls[i].Visible) {
+                        c = Controls[i];
+                        break;
+                    }
+                }
+                if (c != null) {
+                    int height = c.Location.Y
+                        + Font.Height + VerticalPadding;
+                    if (height > Parent.Height) {
+                        Height = height;
+                    }
+                    else {
+                        Height = Parent.Height;
+                    }
                 }
             }
         }
 
-        public void Add(T item)
-        {
-            Items.Add(item);
-            Label l = CreateLabel(item, _cursorY);
-            Controls.Add(l);
-            _cursorY += l.Font.Height + VerticalPadding;
+        protected override void OnPaint(PaintEventArgs e) {
+            base.OnPaint(e);
+            if (_heightDirty) {
+                RecalculateHeight();
+                _heightDirty = false;
+            }
         }
 
         public void Clear()
@@ -122,7 +167,7 @@ namespace MealPlanning {
                 Control label = Controls.Find(item.ToString(), false).First();
                 int position = label.Location.Y;
                 _cursorY -= (label.Font.Height + VerticalPadding);
-                Controls.Remove(label);
+                
                 foreach (Control c in Controls)
                 {
                     if (c.Location.Y > position)
@@ -131,11 +176,13 @@ namespace MealPlanning {
                     }
                 }
 
-                if (_selectedItem.Equals(item))
+                if (SelectedItem.Equals(item))
                 {
-                    _selectedItem = default;
+                    SelectedItem = default;
                 }
+                Controls.Remove(label);
                 Items.Remove(item);
+                RecalculateHeight();
             }
         }
 
@@ -147,10 +194,10 @@ namespace MealPlanning {
                 Location = new Point(LeftMargin, _cursorY),
                 Font = Font,
                 ForeColor = ForeColor,
-                Width = Width - LeftMargin,
+                Width = TextRenderer.MeasureText(item.ToString(), Font).Width,
                 Name = item.ToString()
             };
-            if (item.Equals(_selectedItem))
+            if (item.Equals(SelectedItem))
             {
                 l.ForeColor = SelectColor;
             }
@@ -160,7 +207,7 @@ namespace MealPlanning {
                     l.ForeColor = HoverColor;
                 };
                 l.MouseLeave += (sender, args) => {
-                    if (!item.Equals(_selectedItem))
+                    if (!item.Equals(SelectedItem))
                     {
                         l.ForeColor = ForeColor;
                     }
@@ -197,6 +244,7 @@ namespace MealPlanning {
                 {
                     c.Text = newName;
                     c.Name = newName;
+                    c.Width = TextRenderer.MeasureText(newName, Font).Width;
                 }
             }
         }

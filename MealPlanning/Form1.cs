@@ -71,8 +71,7 @@ namespace MealPlanning {
 
             foreach (var type in Enum.GetValues(typeof(RecipeType))) {
                 recipeType.Items.Add(type);
-                if ((RecipeType)type != RecipeType.All)
-                {
+                if ((RecipeType)type != RecipeType.All) {
                     cmbRecipeType.Items.Add(type);
                 }
             }
@@ -86,6 +85,13 @@ namespace MealPlanning {
                 cmbSection.Items.Add(section);
             }
             cmbSection.SelectedIndexChanged += StoreSectionChanged;
+
+            backgroundWorker1.DoWork += Save;
+            backgroundWorker1.ProgressChanged += ProgressChanged;
+        }
+
+        private void ProgressChanged(object sender, ProgressChangedEventArgs e) {
+            saveProgress.Value = e.ProgressPercentage;
         }
 
         private void _shopList2_DragDrop(object sender, DragEventArgs e) {
@@ -106,7 +112,7 @@ namespace MealPlanning {
             _ingredientList.FilterText = ingredientSearch.Text;
         }
 
-        private void newIngredient_Click(object sender, EventArgs e) {
+        private void NewIngredient(object sender, EventArgs e) {
             Ingredient ingredient = new Ingredient();
             ingredient.Name = "New Ingredient";
             int counter = 1;
@@ -144,7 +150,6 @@ namespace MealPlanning {
                 if (_ingredientList.SelectedItem != null && !selectionChanging) {
                     _ingredientList.UpdateDisplayText(_ingredientList.SelectedItem, iNameField.Text);
                     _ingredientList.SelectedItem.Name = iNameField.Text;
-                    _recipeList.Sort((a, b) => a.Name.CompareTo(b.Name));
                 }
             }
         }
@@ -165,6 +170,7 @@ namespace MealPlanning {
                         UOMClass = (UOMClass)int.Parse(fields[1]),
                         Section = (StoreSection)int.Parse(fields[2])
                     };
+                    Console.WriteLine("{0}:{1}", line, ingredient.Name);
                     _ingredientList.Add(ingredient);
                 }
             }
@@ -174,6 +180,8 @@ namespace MealPlanning {
                     string[] fields = line.Split('|');
                     Recipe recipe = new Recipe();
                     recipe.Name = fields[0];
+
+
                     int skipCount = 1;
                     int typeVal;
                     if (fields.Length > 1 && int.TryParse(fields[1], out typeVal)) {
@@ -195,27 +203,45 @@ namespace MealPlanning {
             }
         }
 
-        private void OnFormClosed(object sender, FormClosedEventArgs e) {
-            using (StreamWriter writer = new StreamWriter(File.OpenWrite("ingredients.txt"))) {
-                foreach (Ingredient i in _ingredientList.Items) {
-                    writer.WriteLine(string.Format("{0}|{1}|{2}", i.Name, (int)i.UOMClass, (int)i.Section));
+        private void OnFormClosed(object sender, EventArgs e) {
+            Save(null, null);
+        }
+
+        private void Save(object sender, DoWorkEventArgs e) {
+            double totalProgress = _ingredientList.Items.Count + _recipeList.Items.Count * 2;
+            double currentProgress = 0;
+            StringBuilder builder = new StringBuilder();
+            foreach (Ingredient i in _ingredientList.Items) {
+                Console.WriteLine(i);
+                Console.WriteLine(string.Format("{0}|{1}|{2}", i.Name, (int)i.UOMClass, (int)i.Section));
+                builder.Append(string.Format("{0}|{1}|{2}\n", i.Name, (int)i.UOMClass, (int)i.Section));
+                currentProgress++;
+                if (backgroundWorker1.IsBusy) {
+                    backgroundWorker1.ReportProgress((int)(currentProgress / totalProgress * 100));
                 }
             }
-            using (StreamWriter writer = new StreamWriter("recipes.txt", false)) {
-                
-                foreach (Recipe r in _recipeList.Items) {
-                    string line = r.Name + "|" + (int)r.Type;
-                    foreach (var item in r.Ingredients) {
-                        line += "|";
-                        line += item.Item1.ToString();
-                        line += "~";
-                        line += item.Item2.ToString();
-                        line += "~";
-                        line += item.Item3.ToString();
-                    }
-                    writer.WriteLine(line);
+            File.WriteAllText("ingredients.txt", builder.ToString());
+
+            StringBuilder recipeBuilder = new StringBuilder();
+
+            foreach (Recipe r in _recipeList.Items) {
+                string line = r.Name + "|" + (int)r.Type;
+                foreach (var item in r.Ingredients) {
+                    line += "|";
+                    line += item.Item1.ToString();
+                    line += "~";
+                    line += item.Item2.ToString();
+                    line += "~";
+                    line += item.Item3.ToString();
                 }
+                recipeBuilder.Append(line + "\n");
+                currentProgress += 2;
+                if (backgroundWorker1.IsBusy) {
+                    backgroundWorker1.ReportProgress((int)(currentProgress / totalProgress * 100));
+                }
+
             }
+            File.WriteAllText("recipes.txt", recipeBuilder.ToString());
         }
 
         private void RecipeNameChanged(object sender, EventArgs e) {
@@ -230,6 +256,7 @@ namespace MealPlanning {
         private void RecipeAddIngredient(object sender, EventArgs e) {
             IngredientDialog dialog = new IngredientDialog();
             dialog.AddIngredients(_ingredientList.Items);
+            dialog.Location = this.Location;
             dialog.ShowDialog();
             (Ingredient ingredient, UOM uom, double qty) = dialog.Value;
             if (ingredient != null) {
@@ -283,17 +310,16 @@ namespace MealPlanning {
                 recipe.Name = "New Recipe " + counter;
                 counter++;
             }
-            _recipeList.Add(recipe);           
+            _recipeList.Add(recipe);
             _recipeList.SelectedItem = recipe;
         }
 
-        private void RemoveRecipe(object sender, EventArgs e) {            
+        private void RemoveRecipe(object sender, EventArgs e) {
             if (_recipeList.SelectedItem != null) {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete " + 
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " +
                     _recipeList.SelectedItem.Name,
                     "Confirm delete", MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
-                {
+                if (result == DialogResult.OK) {
                     _recipeList.Remove(_recipeList.SelectedItem);
                     rNameField.Text = "";
                     dataGridView1.Rows.Clear();
@@ -340,13 +366,13 @@ namespace MealPlanning {
         private void RefreshShopRecipes(object sender, EventArgs e) {
             _shopList1.Clear();
             _shopList2.Clear();
-            foreach (Recipe r in _recipeList.Items) {                
-                    _shopList1.Add(r);                
+            foreach (Recipe r in _recipeList.Items) {
+                _shopList1.Add(r);
             }
         }
 
         private void GenerateShoppingList(object sender, EventArgs e) {
-            
+
             Dictionary<Ingredient, double> shoppingList = new Dictionary<Ingredient, double>();
 
             foreach (Recipe recipe in _shopList2.Items) {
@@ -364,32 +390,26 @@ namespace MealPlanning {
             // 3 pounds, 5 ounces = 3.3125 lb
             StringBuilder builder = new StringBuilder();
             builder.Append("<h3>Shopping List</h3>");
-            
+
             IEnumerable<StoreSection> sections = shoppingList.Select(x => x.Key.Section).Distinct();
-            foreach (StoreSection section in sections)
-            {
+            foreach (StoreSection section in sections) {
 
                 builder.Append(string.Format("<h4>{0}<h4>", section.ToString()));
                 builder.Append("<ul>");
                 IEnumerable<KeyValuePair<Ingredient, double>> list = shoppingList.Where(y => y.Key.Section == section)
                     .ToList();
-                foreach (KeyValuePair<Ingredient, double> pair in list.OrderBy(x => x.Key.Name))
-                    
-                {
+                foreach (KeyValuePair<Ingredient, double> pair in list.OrderBy(x => x.Key.Name)) {
                     string label = "";
                     double current = pair.Value;
-                    for (int i = 0; i < UOM.GetUOMs(pair.Key.UOMClass).Length; i++)
-                    {
+                    for (int i = 0; i < UOM.GetUOMs(pair.Key.UOMClass).Length; i++) {
                         UOM uom = UOM.GetUOMs(pair.Key.UOMClass)[i];
                         int quantity = (int)(current / uom.ConversionFactor);
 
                         current -= quantity * uom.ConversionFactor;
-                        if (i == (UOM.GetUOMs(pair.Key.UOMClass).Length - 1) && current > 0.01)
-                        {
+                        if (i == (UOM.GetUOMs(pair.Key.UOMClass).Length - 1) && current > 0.01) {
                             quantity++;
                         }
-                        if (quantity > 0)
-                        {
+                        if (quantity > 0) {
                             label += quantity + " " + uom.Abbreviation + ", ";
                         }
                     }
@@ -419,21 +439,18 @@ namespace MealPlanning {
         private void ShopListSelected(Recipe old, Recipe ne) {
             if (ne != null) {
                 listRemove.Enabled = true;
-            }   
+            }
         }
 
 
 
-        private void SortIngredients(object sender, EventArgs e)
-        {
+        private void SortIngredients(object sender, EventArgs e) {
             _ingredientList.Sort((a, b) => a.Name.CompareTo(b.Name));
         }
 
-        private void RecipeTypeChanged(object sender, EventArgs e)
-        {
+        private void RecipeTypeChanged(object sender, EventArgs e) {
             RecipeType newType = (RecipeType)recipeType.SelectedItem;
-            if (newType != RecipeType.All)
-            {
+            if (newType != RecipeType.All) {
                 _recipeList.Filter(r => r.Type == newType);
             }
             else {
@@ -441,14 +458,12 @@ namespace MealPlanning {
             }
         }
 
-        private void SortRecipes(object sender, EventArgs e)
-        {
+        private void SortRecipes(object sender, EventArgs e) {
             _recipeList.Sort((a, b) => a.Name.CompareTo(b.Name));
         }
 
         private void RecipeTypeModified(object sender, EventArgs args) {
-            if (_recipeList.SelectedItem != null && !selectionChanging)
-            {
+            if (_recipeList.SelectedItem != null && !selectionChanging) {
                 _recipeList.SelectedItem.Type = (RecipeType)cmbRecipeType.SelectedItem;
             }
         }
@@ -459,12 +474,38 @@ namespace MealPlanning {
             }
         }
 
-        private void EditPreferences(object sender, EventArgs e)
-        {
+        private void EditPreferences(object sender, EventArgs e) {
             SettingsForm settingsForm = new SettingsForm(new UserPreferences());
             settingsForm.Width = 350;
             settingsForm.Height = 500;
             settingsForm.ShowWindow();
+        }
+
+        private void ShowMealList(object sender, EventArgs e) {
+            StringBuilder builder = new StringBuilder();
+            foreach (RecipeType type in _shopList2.Items.Select(r => r.Type).Distinct()) {
+                IEnumerable<Recipe> list = _shopList2.Items.Where(r => r.Type == type)
+                    .OrderBy(r => r.Name);
+                builder.Append(string.Format("<h3>{0}</h3>", type.ToString()));
+                foreach (Recipe recipe in list) {
+                    builder.Append(string.Format("{0}<br>", recipe.Name));
+                }
+            }
+            webBrowser1.DocumentText = builder.ToString();
+        }
+
+        private void SaveClicked(object sender, EventArgs e) {
+            if (!backgroundWorker1.IsBusy) {
+                backgroundWorker1.RunWorkerAsync();
+            }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e) {
+
+        }
+
+        private void Form1_Shown(object sender, EventArgs e) {
+
         }
     }
 }
