@@ -8,14 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MealPlanning {
-    public partial class IngredientDialog : Form {
+namespace MealPlanning
+{
+    public partial class IngredientDialog : Form
+    {
 
         private EnhancedListView<Ingredient> _ingredientList;
+        private int _selectionIndex = -1;
 
         public (Ingredient, UOM, double) Value { get; set; }
 
-        public IngredientDialog() {
+        public IngredientDialog()
+        {
             InitializeComponent();
             _ingredientList = new EnhancedListView<Ingredient>(true, false);
             _ingredientList.Font = new Font(FontFamily.GenericSansSerif, 10);
@@ -27,41 +31,115 @@ namespace MealPlanning {
             cmbUOM.Enabled = false;
         }
 
-        public void AddIngredients(IEnumerable<Ingredient> ingredients) {
-            foreach (Ingredient ingr in ingredients) {
+        public void AddIngredients(IEnumerable<Ingredient> ingredients)
+        {
+            foreach (Ingredient ingr in ingredients)
+            {
                 _ingredientList.Add(ingr);
             }
         }
 
-        private void searchBox_TextChanged(object sender, EventArgs e) {
+        private void searchBox_TextChanged(object sender, EventArgs e)
+        {
+            _selectionIndex = -1;
+            _ingredientList.SelectedItem = null;
             _ingredientList.FilterText = searchBox.Text;
         }
 
-        private void addButton_Click(object sender, EventArgs e) {
-            if (_ingredientList.SelectedItem == null) {
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            if (_ingredientList.SelectedItem == null)
+            {
                 errorLabel.Text = "No ingredient selected";
                 return;
             }
             double qty;
-            if (double.TryParse(quantityField.Text, out qty)) {
-                Value = (_ingredientList.SelectedItem, 
+            if (double.TryParse(quantityField.Text, out qty))
+            {
+                Value = (_ingredientList.SelectedItem,
                     UOM.UOMList.Where(u => u.Name == ((UOM)cmbUOM.SelectedItem).Name).First(), qty);
                 Close();
             }
-            else {
+            else
+            {
                 errorLabel.Text = "Invalid quantity";
             }
         }
 
-        private void cancelButton_Click(object sender, EventArgs e) {
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
             Close();
         }
 
-        private void IngredientChanged(Ingredient old, Ingredient n) {
-            cmbUOM.Items.Clear();
-            cmbUOM.Items.AddRange(UOM.UOMList.Where(u => u.Class == n.UOMClass).ToArray());
-            cmbUOM.SelectedIndex = 0;
-            cmbUOM.Enabled = true;
+        private void IngredientChanged(Ingredient old, Ingredient n)
+        {
+            if (n != null)
+            {
+                cmbUOM.Items.Clear();
+                cmbUOM.Items.AddRange(UOM.UOMList.Where(u => u.Class == n.UOMClass).ToArray());
+                cmbUOM.SelectedIndex = 0;
+                cmbUOM.Enabled = true;
+            }
+            else
+            {
+                cmbUOM.Items.Clear();
+            }
+        }
+
+        private void IngredientDialog_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void searchBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            if (keyData == Keys.Down)
+            {
+                if (searchBox.Focused)
+                {
+                    if (_selectionIndex >= _ingredientList.Items.Count)
+                    {
+                        return true;
+                    }
+                    _selectionIndex++;
+                    if (_selectionIndex < _ingredientList.Items.Count)
+                    {
+                        _ingredientList.SelectedItem = _ingredientList.Items[_selectionIndex];
+                    }
+                    else
+                    {
+                        _ingredientList.SelectedItem = null;
+                    }
+                    return true;
+                }
+            }
+            else if (keyData == Keys.Up)
+            {
+                if (searchBox.Focused) { }
+                if (_selectionIndex < 0)
+                {
+                    return true;
+                }
+                _selectionIndex--;
+
+                if (_selectionIndex >= 0)
+                {
+                    _ingredientList.SelectedItem = _ingredientList.Items[_selectionIndex];
+                }
+                else
+                {
+                    _ingredientList.SelectedItem = null;
+                }
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

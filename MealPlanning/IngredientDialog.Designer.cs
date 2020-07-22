@@ -40,74 +40,82 @@
             // 
             this.dialogList.AutoScroll = true;
             this.dialogList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dialogList.Location = new System.Drawing.Point(46, 162);
+            this.dialogList.Location = new System.Drawing.Point(23, 84);
+            this.dialogList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dialogList.Name = "dialogList";
-            this.dialogList.Size = new System.Drawing.Size(442, 495);
-            this.dialogList.TabIndex = 0;
+            this.dialogList.Size = new System.Drawing.Size(222, 258);
+            this.dialogList.TabIndex = 9;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(54, 37);
+            this.label1.Location = new System.Drawing.Point(27, 19);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 31);
-            this.label1.TabIndex = 1;
+            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.TabIndex = 8;
             this.label1.Text = "Ingredients";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(576, 92);
+            this.label2.Location = new System.Drawing.Point(288, 48);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 30);
-            this.label2.TabIndex = 2;
+            this.label2.Size = new System.Drawing.Size(56, 16);
+            this.label2.TabIndex = 7;
             this.label2.Text = "Quantity";
             // 
             // quantityField
             // 
             this.quantityField.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quantityField.Location = new System.Drawing.Point(581, 145);
+            this.quantityField.Location = new System.Drawing.Point(290, 75);
+            this.quantityField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.quantityField.Name = "quantityField";
-            this.quantityField.Size = new System.Drawing.Size(268, 38);
-            this.quantityField.TabIndex = 3;
+            this.quantityField.Size = new System.Drawing.Size(136, 23);
+            this.quantityField.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(581, 227);
+            this.label3.Location = new System.Drawing.Point(290, 118);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 30);
-            this.label3.TabIndex = 4;
+            this.label3.Size = new System.Drawing.Size(101, 16);
+            this.label3.TabIndex = 6;
             this.label3.Text = "Unit of Measure";
             // 
             // cmbUOM
             // 
             this.cmbUOM.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUOM.FormattingEnabled = true;
-            this.cmbUOM.Location = new System.Drawing.Point(581, 273);
+            this.cmbUOM.Location = new System.Drawing.Point(290, 142);
+            this.cmbUOM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbUOM.Name = "cmbUOM";
-            this.cmbUOM.Size = new System.Drawing.Size(268, 39);
-            this.cmbUOM.TabIndex = 5;
+            this.cmbUOM.Size = new System.Drawing.Size(136, 24);
+            this.cmbUOM.TabIndex = 2;
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(581, 374);
+            this.addButton.Location = new System.Drawing.Point(290, 194);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(117, 51);
-            this.addButton.TabIndex = 6;
+            this.addButton.Size = new System.Drawing.Size(58, 27);
+            this.addButton.TabIndex = 3;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(739, 375);
+            this.cancelButton.Location = new System.Drawing.Point(370, 195);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(110, 50);
-            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Size = new System.Drawing.Size(55, 26);
+            this.cancelButton.TabIndex = 4;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -115,18 +123,21 @@
             // searchBox
             // 
             this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox.Location = new System.Drawing.Point(156, 107);
+            this.searchBox.Location = new System.Drawing.Point(78, 56);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(229, 38);
-            this.searchBox.TabIndex = 8;
+            this.searchBox.Size = new System.Drawing.Size(116, 23);
+            this.searchBox.TabIndex = 0;
             this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
+            this.searchBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchBox_KeyPress);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(64, 116);
+            this.label4.Location = new System.Drawing.Point(32, 60);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 25);
+            this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Search:";
             // 
@@ -135,17 +146,18 @@
             this.errorLabel.AutoSize = true;
             this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(581, 449);
+            this.errorLabel.Location = new System.Drawing.Point(290, 233);
+            this.errorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(79, 29);
-            this.errorLabel.TabIndex = 10;
+            this.errorLabel.Size = new System.Drawing.Size(41, 15);
+            this.errorLabel.TabIndex = 5;
             this.errorLabel.Text = "label5";
             // 
             // IngredientDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 701);
+            this.ClientSize = new System.Drawing.Size(530, 365);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.searchBox);
@@ -157,8 +169,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dialogList);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "IngredientDialog";
             this.Text = "Add Ingredient";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IngredientDialog_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 

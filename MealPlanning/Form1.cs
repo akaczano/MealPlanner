@@ -71,12 +71,13 @@ namespace MealPlanning {
 
             foreach (var type in Enum.GetValues(typeof(RecipeType))) {
                 recipeType.Items.Add(type);
+                shopType.Items.Add(type);
                 if ((RecipeType)type != RecipeType.All) {
                     cmbRecipeType.Items.Add(type);
                 }
             }
             recipeType.SelectedItem = RecipeType.All;
-            recipeType.SelectedIndexChanged += RecipeTypeChanged;
+            shopType.SelectedItem = RecipeType.All;
             cmbRecipeType.SelectedItem = RecipeType.Dinner;
             cmbRecipeType.SelectedIndexChanged += RecipeTypeModified;
             cmbRecipeType.Enabled = false;
@@ -85,6 +86,9 @@ namespace MealPlanning {
                 cmbSection.Items.Add(section);
             }
             cmbSection.SelectedIndexChanged += StoreSectionChanged;
+
+            InterfaceUtil.BuildRecipeDisplay(_recipeList, recipeSearch, sortButton, recipeType);
+            InterfaceUtil.BuildRecipeDisplay(_shopList1, shopSearch, null, shopType);
 
             backgroundWorker1.DoWork += Save;
             backgroundWorker1.ProgressChanged += ProgressChanged;
@@ -103,10 +107,6 @@ namespace MealPlanning {
             e.Effect = DragDropEffects.Move;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e) {
-            _recipeList.FilterText = recipeSearch.Text;
-
-        }
 
         private void ingredientSearch_TextChanged(object sender, EventArgs e) {
             _ingredientList.FilterText = ingredientSearch.Text;
@@ -359,9 +359,6 @@ namespace MealPlanning {
             }
         }
 
-        private void FilterShopRecipes(object sender, EventArgs e) {
-            _shopList1.FilterText = shopSearch.Text;
-        }
 
         private void RefreshShopRecipes(object sender, EventArgs e) {
             _shopList1.Clear();
@@ -448,19 +445,6 @@ namespace MealPlanning {
             _ingredientList.Sort((a, b) => a.Name.CompareTo(b.Name));
         }
 
-        private void RecipeTypeChanged(object sender, EventArgs e) {
-            RecipeType newType = (RecipeType)recipeType.SelectedItem;
-            if (newType != RecipeType.All) {
-                _recipeList.Filter(r => r.Type == newType);
-            }
-            else {
-                _recipeList.Filter(r => true);
-            }
-        }
-
-        private void SortRecipes(object sender, EventArgs e) {
-            _recipeList.Sort((a, b) => a.Name.CompareTo(b.Name));
-        }
 
         private void RecipeTypeModified(object sender, EventArgs args) {
             if (_recipeList.SelectedItem != null && !selectionChanging) {

@@ -90,6 +90,13 @@ namespace MealPlanning {
                     lastLocation += Font.Height + VerticalPadding;
                 }
             }
+            if (_selectedItem != null)
+            {
+                if (!Controls.Find(_selectedItem.ToString(), false).First().Visible)
+                {
+                    SelectedItem = default(T);
+                }
+            }
             RecalculateHeight();
         }
 
