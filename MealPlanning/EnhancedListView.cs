@@ -29,13 +29,27 @@ namespace MealPlanning {
                         Controls.Find(_selectedItem.ToString(), false).First().ForeColor = ForeColor;
                     }
                     if (value != null)
-                    {                        
-                        Controls.Find(value.ToString(), false).FirstOrDefault().ForeColor = SelectColor;
+                    {
+                        Control s = Controls.Find(value.ToString(), false).FirstOrDefault();
+                        s.ForeColor = SelectColor;
+                        ((ScrollableControl)Parent).ScrollControlIntoView(s);
                     }
                     
                     SelectionChanged?.Invoke(_selectedItem, value);
                     _selectedItem = value;
                 }
+            }
+        }
+
+        public int DisplayCount { 
+            get {
+                int count = 0;
+                foreach (Control control in Controls) {
+                    if (control.Visible) {
+                        count++;
+                    }
+                }
+                return count;
             }
         }
 
@@ -73,6 +87,32 @@ namespace MealPlanning {
             _selectable = selectable;
         }
 
+        public void Select(int index) {
+            if (index <= Controls.Count) {
+                int counter = 0;
+                Control target = null;
+                foreach (Control c in Controls) {
+                    if (c.Visible) {
+                        if (counter == index)
+                        {
+                            target = c;
+                            break;
+                        }
+                        else {
+                            counter++;
+                        }
+                    }
+                }
+                if (target != null)
+                {
+                    T item = Items.Find(x => x.ToString() == target.Name);
+                    SelectedItem = item;
+                }
+                else {
+                    SelectedItem = default;
+                }
+            }
+        }
 
         public void Filter(Predicate<T> predicate)
         {

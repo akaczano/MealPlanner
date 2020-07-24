@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MealPlanning {
-    public partial class Form1 : Form {
+    public partial class Form1 : Form, RecipeEditor {
 
         private EnhancedListView<Recipe> _recipeList;
         private EnhancedListView<Ingredient> _ingredientList;
@@ -254,19 +254,10 @@ namespace MealPlanning {
         }
 
         private void RecipeAddIngredient(object sender, EventArgs e) {
-            IngredientDialog dialog = new IngredientDialog();
+            IngredientDialog dialog = new IngredientDialog(this);
             dialog.AddIngredients(_ingredientList.Items);
             dialog.Location = this.Location;
             dialog.ShowDialog();
-            (Ingredient ingredient, UOM uom, double qty) = dialog.Value;
-            if (ingredient != null) {
-                dataGridView1.Rows.Add();
-                int index = dataGridView1.Rows.Count - 1;
-                dataGridView1[0, index].Value = ingredient.Name;
-                dataGridView1[2, index].Value = uom.Name;
-                dataGridView1[1, index].Value = qty;
-                _recipeList.SelectedItem.Ingredients.Add(dialog.Value);
-            }
         }
 
         private void RecipeSelected(Recipe oldRecipe, Recipe newRecipe) {
@@ -491,5 +482,22 @@ namespace MealPlanning {
         private void Form1_Shown(object sender, EventArgs e) {
 
         }
+
+        public void AddIngredient(Ingredient ingredient, UOM uom, double qty) {            
+            if (ingredient != null)
+            {
+                dataGridView1.Rows.Add();
+                int index = dataGridView1.Rows.Count - 1;
+                dataGridView1[0, index].Value = ingredient.Name;
+                dataGridView1[2, index].Value = uom.Name;
+                dataGridView1[1, index].Value = qty;
+                _recipeList.SelectedItem.Ingredients.Add((ingredient, uom, qty));
+            }
+        }
+
+    }
+
+    public interface RecipeEditor {
+        void AddIngredient(Ingredient ingredient, UOM uom, double qty);
     }
 }

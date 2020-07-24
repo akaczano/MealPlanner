@@ -15,10 +15,10 @@ namespace MealPlanning
 
         private EnhancedListView<Ingredient> _ingredientList;
         private int _selectionIndex = -1;
+        private RecipeEditor _editor;
+        
 
-        public (Ingredient, UOM, double) Value { get; set; }
-
-        public IngredientDialog()
+        public IngredientDialog(RecipeEditor editor)
         {
             InitializeComponent();
             _ingredientList = new EnhancedListView<Ingredient>(true, false);
@@ -29,6 +29,7 @@ namespace MealPlanning
             _ingredientList.SelectionChanged += IngredientChanged;
             errorLabel.Text = "";
             cmbUOM.Enabled = false;
+            _editor = editor;
         }
 
         public void AddIngredients(IEnumerable<Ingredient> ingredients)
@@ -56,9 +57,10 @@ namespace MealPlanning
             double qty;
             if (double.TryParse(quantityField.Text, out qty))
             {
-                Value = (_ingredientList.SelectedItem,
-                    UOM.UOMList.Where(u => u.Name == ((UOM)cmbUOM.SelectedItem).Name).First(), qty);
-                Close();
+                _editor.AddIngredient(_ingredientList.SelectedItem,
+                     UOM.UOMList.Where(u => u.Name == ((UOM)cmbUOM.SelectedItem).Name).First(), qty);
+
+                quantityField.Text = "";
             }
             else
             {
@@ -103,14 +105,14 @@ namespace MealPlanning
             {
                 if (searchBox.Focused)
                 {
-                    if (_selectionIndex >= _ingredientList.Items.Count)
+                    if (_selectionIndex >= _ingredientList.DisplayCount - 1)
                     {
                         return true;
                     }
                     _selectionIndex++;
                     if (_selectionIndex < _ingredientList.Items.Count)
                     {
-                        _ingredientList.SelectedItem = _ingredientList.Items[_selectionIndex];
+                        _ingredientList.Select(_selectionIndex);
                     }
                     else
                     {
@@ -122,7 +124,7 @@ namespace MealPlanning
             else if (keyData == Keys.Up)
             {
                 if (searchBox.Focused) { }
-                if (_selectionIndex < 0)
+                if (_selectionIndex <= 0)
                 {
                     return true;
                 }
@@ -130,7 +132,7 @@ namespace MealPlanning
 
                 if (_selectionIndex >= 0)
                 {
-                    _ingredientList.SelectedItem = _ingredientList.Items[_selectionIndex];
+                    _ingredientList.Select(_selectionIndex);
                 }
                 else
                 {
