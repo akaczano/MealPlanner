@@ -394,7 +394,7 @@ namespace MealPlanning {
                         int quantity = (int)(current / uom.ConversionFactor);
 
                         current -= quantity * uom.ConversionFactor;
-                        if (i == (UOM.GetUOMs(pair.Key.UOMClass).Length - 1) && current > 0.01) {
+                        if (i == (UOM.GetUOMs(pair.Key.UOMClass).Length - 1) && current > 0.00001) {
                             quantity++;
                         }
                         if (quantity > 0) {
