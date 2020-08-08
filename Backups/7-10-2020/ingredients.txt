@@ -1,0 +1,228 @@
+Fresh scallions|1|0
+Beef|2|0
+Fresh Carrots|1|0
+Fresh red bell pepper|1|0
+Fresh boston lettuce|1|0
+Fresh watermelon|0|0
+Rice|0|0
+Fresh potatoes, russet|1|0
+Canola Oil|0|0
+Chili powder|0|0
+Turkey bacon|1|0
+Cheddar Cheese, shredded |0|0
+Sour cream - fat free|0|0
+Fresh mixed greens|2|0
+Fresh avocado|1|0
+Dried cranberries|2|0
+Feta cheese|2|0
+Balsamic vinegar|0|0
+Orange juice|0|0
+Fresh basil|0|0
+Dijon Mustard|0|0
+Olive oil|0|0
+Tilapia|2|0
+Fresh baby greens|2|0
+Bread|1|0
+Light brown sugar|0|0
+cumin|0|0
+Garlic powder|0|0
+Pork tenderloin|2|0
+Fresh Cucumber|1|0
+Fresh Tomatoes|1|0
+Fresh white onion|1|0
+Lime Juice|0|0
+Corn tortillas|1|0
+Fresh sweet potatoes|1|0
+Fresh red onion|1|0
+honey|0|0
+Chipotle pepper in adobe sauce|0|0
+Fresh lime|1|0
+Fresh cilantro|0|0
+Fresh poblano peppers|1|0
+Hot sauce|0|0
+Chicken breast strips|2|0
+Southwest spice blend|0|0
+Green salsa|2|0
+Flour tortillas|1|0
+Cheese - Mexican blend|0|0
+Fresh ginger|0|0
+Rice, Jasmine|0|0
+Panko breadcrumbs|0|0
+Hoisin Sauce|0|0
+Green beans|0|0
+Sesame seeds|0|0
+Potatoes - Yukon gold|2|0
+Sweet and smoky BBQ seasoning|0|0
+Broccoli florets|2|0
+Hot honey|0|0
+Fresh green peppers|1|0
+Israeli couscous|0|0
+Quinoa|0|0
+Fresh roma tomato|1|0
+Tuscan heat spice|0|0
+Tomato paste|2|0
+Stock concentrate, Chicken|0|0
+Cheese, mozzarella, shredded|0|0
+Sweet thai chili sauce|0|0
+Soy sauce|0|0
+Shrimp|2|0
+Fresh Zucchini|1|0
+Fresh chives|0|0
+Fresh lemons|1|0
+Salmon|2|0
+Stock concentrate, veggie|0|0
+Butter|0|0
+Butter flavored olive oil|0|0
+Orange roughy or cod|2|0
+Fresh jalapeno|1|0
+Grape tomatoes|2|0
+Basil|2|0
+Almonds, shelled|0|0
+Rice, Arborio|0|0
+Steelhead trout|2|0
+Parmesan cheese, shredded|0|0
+Wasabi paste|0|0
+Stock concentrate, beef|0|0
+Monterey jack, shredded|0|0
+Olives|1|0
+Black beans|2|0
+Yeast|1|0
+Picante sauce|0|0
+Flour|0|0
+Fresh dill|2|0
+Za'atar spice blend|0|0
+Hummus|0|0
+Fresh zucchini|1|0
+Button mushrooms|2|0
+White wine vinegar|0|0
+Sesame oil|0|0
+Sriracha|0|0
+Shredded coconut|0|0
+Tilapi|2|0
+Turmeric|0|0
+Fresh rosemary|0|0
+Cream cheese|2|0
+Chili peppers|1|0
+Tortillas, gluten free|1|0
+Steak, diced|2|0
+Teriyaki sauce|2|0
+Stock concentrate, seafood|0|0
+Dried apricots|2|0
+Chickpeas|2|0
+Pork chops, bone-in|2|0
+Worchestershire sauce|0|0
+Dried sage|0|0
+Walnuts|0|0
+Chicken broth|0|0
+Swiss chard|0|0
+Mushrooms, cremini, sliced|2|0
+Fresh garlic cloves|1|0
+Fresh apple, Granny Smith|1|0
+Wild rice|0|0
+Fresh flat leaf parsley|0|0
+Portobello caps, 4.5 in|1|0
+Balsamic vinagrette|0|0
+Diced pimiento, jar|2|0
+Jerk seasoning|0|0
+Fresh mango|1|0
+Fresh mint|0|0
+Fresh melon pieces|2|0
+Penne|2|0
+Artichoke hearts|2|0
+Pesto|0|0
+Cheese, Romano|0|0
+Fresh pears|1|0
+Fresh mushrooms, portabella|2|0
+Canned tomatoes|2|0
+Canned tomato sauce|2|0
+Italian seasoning|0|0
+Spaghetti|2|0
+Paprika|0|0
+Celery Seed|0|0
+Catfish|2|0
+Canola mayonnaise|0|0
+Sweet pickle relish|0|0
+Ground red pepper|0|0
+Sherry|0|0
+Rice wine vinegar|0|0
+Cornstarch|0|0
+Fresh Aspargus|2|0
+Fresh parsley|0|0
+Capers|0|0
+Pecans|0|0
+Fresh baby spinach|0|0
+Curry powder|0|0
+Peanuts|0|0
+Sugar|0|0
+Peanut butter|0|0
+Coconut milk|0|0
+Fish sauce|0|0
+Crushed red pepper|0|0
+RIce noodles|2|0
+Ketchup|0|0
+Peanut oil|0|0
+Eggs|1|0
+Fresh bean sprouts|0|0
+Orange marmalade|0|0
+Strawberry all-fruit|0|0
+Yogurt, strawberry|2|0
+Tofu, silken|0|0
+Whey protein powder, scoop|1|0
+Flaxseed oil|0|0
+Frozen strawberries|0|0
+Frozen peaches|0|0
+Frozen mango|0|0
+Yogurt, vanilla|2|0
+Yogurt, plain|2|0
+Pineapple juice|0|0
+Pineapple-orange juice|0|0
+Fresh pineapple|0|0
+Frozen banana|1|0
+Fresh banana|1|0
+Fresh strawberries|0|0
+Honeydew melon|0|0
+Oatmeal|0|0
+Fresh apples|1|0
+Cinnamon|0|0
+Fresh raspberries|0|0
+Granola|0|0
+Milk|0|0
+Canned peaches|2|0
+Almonds, slivered|0|0
+Bacon bits|0|0
+Lemon juice|0|0
+Almond extract|0|0
+Canned chicken breast|2|0
+Pita bread|1|0
+Sunflower seeds|0|0
+Canned pineapple|2|0
+Edamame|0|0
+String cheese|1|0
+Fresh celery|1|0
+Fresh radish|1|0
+Mustard, grainy|0|0
+Fresh tomato|1|0
+Anchovy paste|0|0
+Fresh romaine|0|0
+Fresh potato|1|0
+Baking powder|0|0
+Cheese, block|2|0
+New Ingredient|0|0
+Baking soda|0|0
+Chocolate chips, semisweet|0|0
+Cocoa powder|0|0
+Vanilla|0|0
+Fresh plums|1|0
+Preserves, raspberry or strawberry|0|0
+Margarine|0|0
+Ice cream, vanilla slow-churned|0|0
+Cheese, ricotta|0|0
+Fresh blueberries|0|0
+Fresh min|0|0
+Graham crackers|0|0
+Cottage cheese|0|0
+Crackers|1|0
+Applesauce|0|0
+Orange extract|0|0
+Cashews|0|0
+Pretzel rods|1|0

@@ -1,0 +1,228 @@
+Almond extract|0|4
+Almonds, shelled|0|4
+Almonds, slivered|0|4
+Anchovy paste|0|4
+Applesauce|0|4
+Artichoke hearts|2|4
+Bacon bits|0|4
+Baking powder|0|4
+Baking soda|0|4
+Balsamic vinagrette|0|4
+Balsamic vinegar|0|4
+Basil|2|0
+Beef|2|3
+Black beans|2|4
+Bread|1|4
+Broccoli florets|2|0
+Butter|0|1
+Butter flavored olive oil|0|4
+Button mushrooms|2|0
+Canned chicken breast|2|4
+Canned peaches|2|4
+Canned pineapple|2|4
+Canned tomato sauce|2|4
+Canned tomatoes|2|4
+Canola mayonnaise|0|4
+Canola Oil|0|4
+Capers|0|4
+Cashews|0|4
+Catfish|2|3
+Celery Seed|0|4
+Cheddar Cheese, shredded |0|1
+Cheese - Mexican blend|0|1
+Cheese, block|2|1
+Cheese, mozzarella, shredded|0|1
+Cheese, ricotta|0|1
+Cheese, Romano|0|1
+Chicken breast strips|2|3
+Chicken broth|0|4
+Chickpeas|2|4
+Chili peppers|1|0
+Chili powder|0|4
+Chipotle pepper in adobe sauce|0|4
+Chocolate chips, semisweet|0|4
+Cinnamon|0|4
+Cocoa powder|0|4
+Coconut milk|0|1
+Corn tortillas|1|4
+Cornstarch|0|4
+Cottage cheese|0|1
+Crackers|1|4
+Cream cheese|2|1
+Crushed red pepper|0|4
+cumin|0|4
+Curry powder|0|4
+Diced pimiento, jar|2|4
+Dijon Mustard|0|4
+Dried apricots|2|4
+Dried cranberries|2|4
+Dried sage|0|4
+Edamame|0|4
+Eggs|1|1
+Feta cheese|2|1
+Fish sauce|0|4
+Flaxseed oil|0|4
+Flour|0|4
+Flour tortillas|1|4
+Fresh apple, Granny Smith|1|0
+Fresh apples|1|0
+Fresh Aspargus|2|0
+Fresh avocado|1|0
+Fresh baby greens|2|0
+Fresh baby spinach|0|0
+Fresh banana|1|0
+Fresh basil|2|0
+Fresh bean sprouts|0|0
+Fresh blueberries|0|0
+Fresh boston lettuce|1|0
+Fresh Carrots|1|0
+Fresh celery|1|0
+Fresh chives|0|0
+Fresh cilantro|0|0
+Fresh Cucumber|1|0
+Fresh dill|2|0
+Fresh flat leaf parsley|0|0
+Fresh garlic cloves|1|0
+Fresh ginger|0|0
+Fresh green peppers|1|0
+Fresh jalapeno|1|0
+Fresh lemons|1|0
+Fresh lime|1|0
+Fresh mango|1|0
+Fresh melon pieces|2|0
+Fresh min|0|0
+Fresh mint|0|0
+Fresh mixed greens|2|0
+Fresh mushrooms, portabella|2|0
+Fresh parsley|0|0
+Fresh pears|1|0
+Fresh pineapple|0|0
+Fresh plums|1|0
+Fresh poblano peppers|1|0
+Fresh potato|1|0
+Fresh potatoes, russet|1|0
+Fresh radish|1|0
+Fresh raspberries|0|0
+Fresh red bell pepper|1|0
+Fresh red onion|1|0
+Fresh roma tomato|1|0
+Fresh romaine|0|0
+Fresh rosemary|0|0
+Fresh scallions|1|0
+Fresh strawberries|0|0
+Fresh sweet potatoes|1|0
+Fresh tomato|1|0
+Fresh Tomatoes|1|0
+Fresh watermelon|0|0
+Fresh white onion|1|0
+Fresh zucchini|1|0
+Fresh Zucchini|1|0
+Frozen banana|1|4
+Frozen mango|0|4
+Frozen peaches|0|4
+Frozen strawberries|0|4
+Garlic powder|0|4
+Graham crackers|0|4
+Granola|0|4
+Grape tomatoes|2|0
+Green beans|2|0
+Green salsa|2|4
+Ground red pepper|0|4
+Hoisin Sauce|0|4
+honey|0|4
+Honeydew melon|0|0
+Hot honey|0|4
+Hot sauce|0|4
+Hummus|0|2
+Ice cream, vanilla slow-churned|0|4
+Israeli couscous|0|4
+Italian seasoning|0|4
+Jerk seasoning|0|4
+Ketchup|0|4
+Lemon juice|0|4
+Light brown sugar|0|4
+Lime Juice|0|4
+Margarine|0|1
+Milk|0|1
+Monterey jack, shredded|0|1
+Mushrooms, cremini, sliced|2|0
+Mustard, grainy|0|4
+Oatmeal|0|4
+Olive oil|0|4
+Olives|1|4
+Orange extract|0|4
+Orange juice|0|1
+Orange marmalade|0|4
+Orange roughy or cod|2|3
+Panko breadcrumbs|0|4
+Paprika|0|4
+Parmesan cheese, shredded|0|2
+Parmesan, grated|0|4
+Peanut butter|0|4
+Peanut oil|0|4
+Peanuts|0|4
+Pecans|0|4
+Penne|2|4
+Pesto|0|4
+Picante sauce|0|4
+Pineapple juice|0|4
+Pineapple-orange juice|0|4
+Pita bread|1|2
+Pork chops, bone-in|2|3
+Pork tenderloin|2|3
+Portobello caps, 4.5 in|1|0
+Potatoes - Yukon gold|2|0
+Preserves, raspberry or strawberry|0|4
+Pretzel rods|1|4
+Quinoa|0|4
+Rice|0|4
+RIce noodles|2|4
+Rice wine vinegar|0|4
+Rice, Arborio|0|4
+Rice, Jasmine|0|4
+Salmon|2|3
+Sesame oil|0|4
+Sesame seeds|0|4
+Sherry|0|4
+Shredded coconut|0|4
+Shrimp|2|3
+Sour cream - fat free|0|1
+Southwest spice blend|0|4
+Soy sauce|0|4
+Spaghetti|2|4
+Sriracha|0|4
+Steak, diced|2|3
+Steelhead trout|2|3
+Stock concentrate, beef|0|4
+Stock concentrate, Chicken|0|4
+Stock concentrate, seafood|0|4
+Stock concentrate, veggie|0|4
+Strawberry all-fruit|0|4
+String cheese|1|1
+Sugar|0|4
+Sunflower seeds|0|4
+Sweet and smoky BBQ seasoning|0|4
+Sweet pickle relish|0|4
+Sweet thai chili sauce|0|4
+Swiss chard|0|0
+Teriyaki sauce|2|4
+Tilapi|2|3
+Tilapia|2|3
+Tofu, silken|0|2
+Tomato paste|2|4
+Tortillas, gluten free|1|4
+Turkey bacon|1|3
+Turmeric|0|4
+Tuscan heat spice|0|4
+Vanilla|0|4
+Walnuts|0|4
+Wasabi paste|0|4
+Whey protein powder, scoop|1|4
+White wine vinegar|0|4
+Wild rice|0|4
+Worchestershire sauce|0|4
+Yeast|1|4
+Yogurt, plain|2|1
+Yogurt, strawberry|2|1
+Yogurt, vanilla|2|1
+Za'atar spice blend|0|4
